@@ -8,6 +8,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskEntity } from './tasks/task.entity';
 import * as LocalSession from 'telegraf-session-local';
+import { ScheduleModule } from '@nestjs/schedule';
 
 const sessions = new LocalSession({ database: 'session_db.json' });
 
@@ -36,6 +37,7 @@ const sessions = new LocalSession({ database: 'session_db.json' });
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forFeature([TaskEntity]),
     TasksModule,
   ],

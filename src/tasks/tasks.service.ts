@@ -18,8 +18,20 @@ export class TasksService {
     return this.taskRepository.findOneBy({ id, userId });
   }
 
-  async addTask(text: string, userId: number) {
-    const task = this.taskRepository.create({ text, userId });
+  async addTask(
+    title: string,
+    description: string,
+    date: string,
+    time: string,
+    userId: number,
+  ) {
+    const task = this.taskRepository.create({
+      title,
+      description,
+      userId,
+      date,
+      time,
+    });
     await this.taskRepository.save(task);
     return this.getAll(userId);
   }
@@ -33,11 +45,30 @@ export class TasksService {
     return task;
   }
 
-  async editTask(id: number, userId: number, newName: string) {
+  async getTasksToRemind(now: string) {
+    const tasks = await this.taskRepository.find();
+    return tasks.filter(
+      (task) => task.date + ' ' + task.time === now && !task.reminded,
+    );
+  }
+
+  async markTaskAsReminded(taskId: number) {
+    const tasks = await this.taskRepository.find();
+    const task = tasks.find((task) => task.id === taskId);
+    if (task) task.reminded = true;
+  }
+
+  async editTask(
+    id: number,
+    userId: number,
+    newName: string,
+    // description: string,
+  ) {
     const task = await this.getById(id, userId);
     if (!task) return null;
     console.log(task);
-    task.text = newName;
+    task.title = newName;
+    // task.description = description;
     await this.taskRepository.save(task);
     return task;
   }
