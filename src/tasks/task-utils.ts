@@ -1,4 +1,4 @@
-import { Markup } from 'telegraf';
+import { Context, Markup } from 'telegraf';
 
 export const BUTTONS = {
   TASK_LIST: '📋 Список задач',
@@ -7,14 +7,6 @@ export const BUTTONS = {
   ADD_TASK: '📝 Добавить задачку',
   DOUN_TASK: '✅ Сделал задачку',
 };
-
-export const previewTask = (task) =>
-  `Твой список задач 💁🏼: \n\n${task
-    .map(
-      (item) =>
-        (item.isCompleted ? '✅ ' : '❌ ') + item.id + item.text + '\n\n',
-    )
-    .join('')}`;
 
 // Функция для отображения задач с пагинацией
 export function renderTasks(tasks, page = 1, pageSize = 5) {
@@ -29,8 +21,8 @@ export function renderTasks(tasks, page = 1, pageSize = 5) {
     [
       // Первая строка - задача
       Markup.button.callback(
-        `${task.isCompleted ? '✅' : '❌'} ${task.text}`,
-        `ignore`,
+        `${task.isCompleted ? '✅' : '❌'} ${task.title}`,
+        `task_${task.id}`,
       ),
     ],
     [
@@ -56,4 +48,12 @@ export function renderTasks(tasks, page = 1, pageSize = 5) {
   return Markup.inlineKeyboard([...taskButtons, paginationButtons], {
     columns: 1,
   });
+}
+
+// Функция для отображения одной задач
+export function renderTask(ctx: Context, title, description, date, time) {
+  return ctx.reply(
+    `Круто, ты добавил новую задачу:\n\nНазвание📌: *${title}*\nОписание📝: *${description}*\nДата 📅: *${date}*\nВремя ⏰: *${time}*`,
+    { parse_mode: 'Markdown' },
+  );
 }

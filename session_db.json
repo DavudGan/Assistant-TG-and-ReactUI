@@ -4,15 +4,14 @@
       "id": "497230003:497230003",
       "data": {
         "__scenes": {},
-        "page": 1
-      }
-    },
-    {
-      "id": "654627186:654627186",
-      "data": {
-        "__scenes": {},
         "page": 1,
-        "type": "add"
+        "type": "add_description",
+        "taskTitle": "Покушать пиццу",
+        "taskDescription": "Алалалу",
+        "taskYear": 2025,
+        "taskMonth": 3,
+        "taskDay": 1,
+        "taskTime": "03:15"
       }
     }
   ]
