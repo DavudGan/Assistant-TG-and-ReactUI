@@ -22,7 +22,6 @@ export class TasksController {
   constructor(
     @InjectBot() private readonly bot: Telegraf<Context>,
     private readonly tasksService: TasksService,
-    // private readonly dateTimePickerService: DateTimePickerService,
   ) {}
   @Start()
   async startCommand(ctx: Context) {

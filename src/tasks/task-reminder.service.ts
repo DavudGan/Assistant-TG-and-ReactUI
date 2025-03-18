@@ -27,7 +27,7 @@ export class TaskReminderService implements OnModuleInit {
     for (const task of tasksToRemind) {
       await this.bot.telegram.sendMessage(
         task.userId,
-        `🔔 Напоминание о задаче:\n\n📌 *${task.title}*\n📝 *${task.description}*\n📅 *${task.date}*\n ⏰ *${task.time}*`,
+        `🔔 Напоминание о задаче:\n\n📌 *${task.title}*\n 📝 *${task.description}*\n 📅 *${task.date}*\n ⏰ *${task.time}*`,
         { parse_mode: 'Markdown' },
       );
 
